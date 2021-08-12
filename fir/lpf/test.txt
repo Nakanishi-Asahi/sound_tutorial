@@ -1,0 +1,6 @@
+gcc fft.c -o fft -lm -lfftw3
+gcc lpf.c -o lpf -lm
+gcc make_raw_impulse.c -o make_raw_impulse
+./make_raw_impulse impulse.raw
+./lpf impulse.raw impulse_lpf.raw
+Makefile:13: ターゲット 'impulse_lpf.raw' のレシピで失敗しました
