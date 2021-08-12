@@ -6,10 +6,11 @@
 #define NUM 1024
 
 int main(int argc, char **argv){
-	
+	/*
 	double invNUM = 1.0 / NUM;
 	printf("invNUM = %f\n", invNUM);
 	printf("@@@@@@@@@@@@@@@@@@@@@\n");
+	*/
 
 	FILE *f1, *f2, *f3;
 
@@ -46,7 +47,7 @@ int main(int argc, char **argv){
 
 	for(n = 0; n < len; n++){
 		fread(&s, sizeof(double), 1, f1);
-		printf("%f\n", s);
+		//printf("%f\n", s);
 		fprintf(f2, "%d %f\n", n, s);
 
 		double re = s;
@@ -54,8 +55,8 @@ int main(int argc, char **argv){
 
 		in[count][0] = re;
 		in[count][1] = im;
-		printf("%f\n", in[count][0]);
-		printf("#######################\n");
+		//printf("%f\n", in[count][0]);
+		//printf("#######################\n");
 		count++;
 		if(count >= NUM){
 			fftw_plan fwd = fftw_plan_dft_1d(NUM, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
@@ -63,7 +64,7 @@ int main(int argc, char **argv){
 			for(int i = 0; i < NUM; i++){
 				double re = out[i][0];
 				double im = out[i][1];
-				printf("re = %f, im = %f\n", re, im);
+				//printf("re = %f, im = %f\n", re, im);
 				/*
 				if(i != 0||i != NUM/2){
 					re *= invNUM * 2;
@@ -84,7 +85,7 @@ int main(int argc, char **argv){
 					rad = atan2(im, re);
 				}
 				double deg = rad / M_PI * 180;
-				printf("%03d re,im,amp,rad,deg %+6.f %+6.f %+6.f %+6.f %+6.2f\n", i, re, im, amp, rad, deg);
+				//printf("%03d re,im,amp,rad,deg %+6.f %+6.f %+6.f %+6.f %+6.2f\n", i, re, im, amp, rad, deg);
 				double freq = (double)fs * (double)i / (double)NUM;
 				double dB = 20.0 * log10(fabs(amp));
 				if(fft_count == 0){
@@ -95,7 +96,7 @@ int main(int argc, char **argv){
 			fft_count++;
 
 			fftw_destroy_plan(fwd);
-			printf("$$$$$$$$$$$$$$$$$$$$$\n");
+			//printf("$$$$$$$$$$$$$$$$$$$$$\n");
 			count = 0;
 		}
 	}

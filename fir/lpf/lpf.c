@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define TAP 4096
+#define TAP 2048
 
 double sinc(double x){
-  if(-1e-6 < x && x < 1e-6){
+  if(x == 0.0){
     return 1;
   }
   else{
@@ -28,7 +28,7 @@ int main(int argc, char **argv){
     exit(-2);
   }
   
-  if((f2 = fopen(argv[2], "wb")) == NULL){
+  if((f2 = fopen(argv[2], "a")) == NULL){
     printf("Cannot open %s\n", argv[2]);
     exit(-3);
   }
@@ -42,10 +42,16 @@ int main(int argc, char **argv){
   
   double coef[TAP];
 
-  for(int m = 0; m < TAP + 1; m++){
-    coef[m] = 2.0 * fe * sinc(2.0 * M_PI * fe * (double)(m - TAP / 2));
+  for(int m = 0; m < TAP; m++){
+    if(m == TAP / 2){
+      coef[m] = 2.0 * fe;
+    }
+    else{
+      coef[m] = 2.0 * fe * sin(2.0 * M_PI * fe * (double)(m - TAP / 2)) / (2.0 * M_PI * fe * (double)(m - TAP / 2));
+    }
+    fprintf(f2, "%d %f\n", m, coef[m]);
   }
-
+  /*
   double input;
   double x_tmp[TAP];
   int count = 0;
@@ -56,17 +62,11 @@ int main(int argc, char **argv){
   }
 
   for(int n = 0; n < len; n++){
-    //printf("################\n");
-    //printf("n : %d\n", n);
     fread(&input, sizeof(double), 1, f1);
-    //printf("input : %f\n", input);
     x_tmp[count] = input;
-    //printf("count : %d\n", count);
     count++;
     
     if(count >= TAP){
-
-      printf("!!\n");
 
       double x_fir[3 * TAP - 2];
       for(int i = 0; i < 3 * TAP - 2; i++){
@@ -77,8 +77,7 @@ int main(int argc, char **argv){
 	  x_fir[i] = x_tmp[i - (TAP - 1)];
 	}
       }
-      
-      printf("fir start!!\n");
+
       double y_tmp[2 * TAP];
       y_tmp[0] = 0.0;
       for(int i = 0; i < 2 * TAP - 1; i++){
@@ -118,6 +117,7 @@ int main(int argc, char **argv){
       count = 0;
     }
   }
+  */
   fclose(f1);
   fclose(f2);
   return 0;
