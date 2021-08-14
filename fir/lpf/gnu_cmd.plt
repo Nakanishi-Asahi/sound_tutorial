@@ -2,7 +2,7 @@ set term png size 960, 720
 set output "wave.png"
 set xlabel "sample"
 set ylabel "linear"
-plot [-1:2000] [-1.5:1.5] "wave.txt" w lp pointtype 6
+plot [-1:2000] [-0.5:0.5] "wave.txt" w lp pointtype 6
 set logscale x
 set xlabel "frequency"
 set ylabel "dB"

@@ -1,9 +1,9 @@
 CC := gcc
 
-fft.png: fft.txt
+wave.png fft.png : fft.txt
 	gnuplot gnu_cmd.plt
 
-fft.txt: fft impulse_lpf.raw
+wave.txt fft.txt: fft impulse_lpf.raw
 	./fft impulse_lpf.raw wave.txt fft.txt
 
 fft: fft.c
@@ -21,6 +21,9 @@ make_raw_impulse: make_raw_impulse.c
 lpf: lpf.c
 	$(CC) lpf.c -o lpf -lm
 
+read_raw : read_raw.c
+	$(CC) read_raw.c -o read_raw
+
 clean:
 	$(RM) wave.txt
 	$(RM) impulse_lpf.raw
@@ -32,3 +35,4 @@ clean:
 	$(RM) wave.png
 	$(RM) impulse.raw
 	$(RM) make_raw_impulse
+	$(RM) read_raw
