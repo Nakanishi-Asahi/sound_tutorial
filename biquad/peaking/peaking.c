@@ -24,9 +24,9 @@ int main(int argc, char **argv){
 	int len = 48000;
 
 	int fs = 48000;
-	double f0 = 1000.0;
-	double dBgain = -3.0;
-	double Q = 1.0 / sqrt(2.0);
+	double f0 = 1500.0;
+	double dBgain = 3.0;
+	double Q = 0.5;
 
 	double A = pow(10.0, (dBgain / 40.0));
 	double omega = 2.0 * M_PI * f0 / (double)fs;
@@ -35,14 +35,14 @@ int main(int argc, char **argv){
 	double alpha = sin_omega / (2.0 * Q);
 
 	double b[3] = {
-		1.0,
+		1.0 + alpha * A,
 		-2.0 * cos_omega,
-		1.0
+		1.0 - alpha * A
 	};
 	double a[3] = {
-		1.0 + alpha,
+		1.0 + alpha / A,
 		-2.0 * cos_omega,
-		1.0 - alpha
+		1.0 - alpha / A
 	};
 
 	int n;

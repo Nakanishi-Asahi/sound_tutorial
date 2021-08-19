@@ -55,13 +55,8 @@ int main(int argc, char **argv){
 	y2 = 0.0;
 
 	for(n = 0; n < len; n++){
-		printf("#######################\n");
-		printf("n : %d\n", n);
 		fread(&x, sizeof(double), 1, f1);
-		printf("x : %f\n", x);
 		y = (b[0] / a[0]) * x + (b[1] / a[0]) * x1 + (b[2] / a[0]) * x2- (a[1] / a[0]) * y1 - (a[2] / a[0]) * y2;
-		printf("y : %f\n", y);
-		printf("#######################\n");
 		fwrite(&y, sizeof(double), 1, f2);
 
 		x2 = x1;
